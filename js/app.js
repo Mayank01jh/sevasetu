@@ -1173,7 +1173,7 @@
       });
 
       closeModal('donation-modal');
-      showDonationSuccessModal(donation);
+      viewOfficialReceipt(donation.billId);
     } catch (err) {
       alert('Error creating donation: ' + err.message);
     }
@@ -1223,7 +1223,14 @@
     if (!modal) return;
 
     var html = [
-      '<div class="modal-card print-only-target" style="max-width:800px;">',
+      '<div class="modal-card print-only-target" style="max-width:800px; overflow:hidden;">',
+      '  <div class="printer-slot-bar no-print">',
+      '    <div style="display:flex; align-items:center; gap:8px;">',
+      '      <div class="printer-led"></div>',
+      '      <span style="color:#94a3b8; font-size:0.75rem; font-family:monospace; font-weight:700;">SEVASETU THERMAL SLIP PRINTER • MODEL 80G-SEC5</span>',
+      '    </div>',
+      '    <span class="verified-stamp-seal" style="animation-delay:0.8s;">80G VERIFIED</span>',
+      '  </div>',
       '  <div class="modal-header no-print">',
       '    <h3 class="modal-title">Official Section 80G Donation Receipt</h3>',
       '    <div style="display:flex; gap:10px;">',
@@ -1231,8 +1238,10 @@
       '      <button class="modal-close-btn" onclick="window.SevaSetuApp.closeModal(\'receipt-modal\')">&times;</button>',
       '    </div>',
       '  </div>',
-      '  <div class="modal-body">',
-      '    <div class="official-receipt-doc">',
+      '  <div class="modal-body" style="background:#f1f5f9; padding:20px;">',
+      '    <div class="receipt-slip-animated">',
+      '      <div class="printer-laser-line"></div>',
+      '      <div class="official-receipt-doc">',
       '      <div class="receipt-watermark">Section 80G Tax Exemption Certificate • Government of India IT Act, 1961</div>',
       '      <div class="receipt-header-table">',
       '        <div class="receipt-ngo-title">' + donation.ngoName + '</div>',
@@ -1262,6 +1271,7 @@
       '          <div style="font-size:0.7rem; color:#64748b;">' + donation.ngoName + '</div>',
       '        </div>',
       '      </div>',
+      '    </div>',
       '    </div>',
       '  </div>',
       '</div>'
@@ -1294,24 +1304,32 @@
       '      <button class="modal-close-btn" onclick="window.SevaSetuApp.closeModal(\'receipt-modal\')">&times;</button>',
       '    </div>',
       '  </div>',
-      '  <div class="modal-body">',
-      '    <div class="official-receipt-doc" style="border: 4px double #107361; text-align:center;">',
-      '      <div style="font-size:0.85rem; text-transform:uppercase; letter-spacing:2px; color:#107361; font-weight:bold;">SevaSetu Verified Community Service</div>',
-      '      <h2 style="font-size:2.2rem; font-family:serif; color:#162836; margin:16px 0 8px;">Certificate of Volunteering</h2>',
-      '      <p style="font-size:1rem; color:#475569; font-style:italic;">This is proudly presented to</p>',
-      '      <h3 style="font-size:1.8rem; color:#107361; margin:10px 0; border-bottom:2px solid #cbd5e1; display:inline-block; padding:0 30px;">' + rec.volunteerName + '</h3>',
-      '      <p style="font-size:1rem; color:#334155; max-width:600px; margin:16px auto; line-height:1.6;">',
-      '        In recognition of dedicated civic service for completing <strong>' + rec.hoursLogged + ' hours</strong> of verified on-ground service with <strong>' + rec.ngoName + '</strong> in the initiative <em>"' + rec.opportunityTitle + '"</em> on <strong>' + rec.sessionDate + '</strong>.',
-      '      </p>',
-      '      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:36px; padding-top:20px; border-top:1px solid #cbd5e1;">',
-      '        <div id="cert-qr-code-box" style="width:100px; height:100px;"></div>',
-      '        <div>',
-      '          <div style="font-size:0.85rem; font-weight:bold;">Certificate ID: ' + rec.certificateId + '</div>',
-      '          <div style="font-size:0.75rem; color:#64748b;">Digitally verified via SevaSetu Attendance Protocol</div>',
-      '        </div>',
-      '        <div>',
-      '          <div style="font-family:\'Brush Script MT\', cursive, serif; font-size:1.6rem; color:#107361;">' + (rec.approvedBy || 'Field Lead') + '</div>',
-      '          <div style="font-size:0.8rem; font-weight:bold; border-top:1px solid #000; padding-top:2px;">Field Lead & Reviewer</div>',
+      '  <div class="modal-body" style="background:#f1f5f9; padding:24px;">',
+      '    <div class="certificate-animated-card">',
+      '      <div class="official-receipt-doc" style="border: 4px double #107361; text-align:center; background:#ffffff; box-shadow:0 12px 30px rgba(0,0,0,0.08); padding:32px;">',
+      '        <div style="font-size:0.85rem; text-transform:uppercase; letter-spacing:2px; color:#107361; font-weight:bold;">SevaSetu Verified Community Service</div>',
+      '        <h2 style="font-size:2.2rem; font-family:serif; color:#162836; margin:16px 0 8px;">Certificate of Volunteering</h2>',
+      '        <p style="font-size:1rem; color:#475569; font-style:italic;">This is proudly presented to</p>',
+      '        <h3 style="font-size:1.8rem; color:#107361; margin:10px 0; border-bottom:2px solid #cbd5e1; display:inline-block; padding:0 30px;">' + rec.volunteerName + '</h3>',
+      '        <p style="font-size:1rem; color:#334155; max-width:600px; margin:16px auto; line-height:1.6;">',
+      '          In recognition of dedicated civic service for completing <strong>' + rec.hoursLogged + ' hours</strong> of verified on-ground service with <strong>' + rec.ngoName + '</strong> in the initiative <em>"' + rec.opportunityTitle + '"</em> on <strong>' + rec.sessionDate + '</strong>.',
+      '        </p>',
+      '        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:36px; padding-top:20px; border-top:1px solid #cbd5e1;">',
+      '          <div id="cert-qr-code-box" style="width:100px; height:100px;"></div>',
+      '          <div class="cert-gold-emblem" style="text-align:center;">',
+      '            <div style="width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg, #f59e0b 0%, #b45309 100%); margin:0 auto; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.4rem; box-shadow:0 4px 12px rgba(217, 119, 6, 0.4); border:2px solid #fef3c7;">★</div>',
+      '            <div style="font-size:0.68rem; font-weight:bold; color:#b45309; margin-top:4px; letter-spacing:1px;">GOLD SEAL VERIFIED</div>',
+      '          </div>',
+      '          <div>',
+      '            <div style="font-size:0.85rem; font-weight:bold;">Certificate ID: ' + rec.certificateId + '</div>',
+      '            <div style="font-size:0.75rem; color:#64748b;">Digitally verified via SevaSetu Attendance Protocol</div>',
+      '          </div>',
+      '          <div>',
+      '            <svg width="110" height="28" viewBox="0 0 110 28" fill="none" style="display:block; margin:0 auto 2px;">',
+      '              <path class="signature-svg-line" d="M5 20 Q 20 4, 35 16 T 60 10 T 85 18 T 105 12" stroke="#107361" stroke-width="2.2" stroke-linecap="round"/>',
+      '            </svg>',
+      '            <div style="font-size:0.8rem; font-weight:bold; border-top:1px solid #000; padding-top:2px;">' + (rec.approvedBy || 'Field Lead & Reviewer') + '</div>',
+      '          </div>',
       '        </div>',
       '      </div>',
       '    </div>',
@@ -1516,8 +1534,8 @@
     try {
       var record = store.approveVolunteerHours(recordId, hours, notes);
       closeModal('general-modal');
-      showToast('Hours approved! Issued Certificate ' + record.certificateId);
       renderCurrentSection();
+      viewVolunteerCertificate(record.recordId);
     } catch (err) {
       alert(err.message);
     }
