@@ -1032,10 +1032,19 @@
     var modal = document.getElementById('donation-modal');
     if (!modal) return;
 
+    var curUser = store.state.currentUser || {};
+    var defName = curUser.name || 'Sunita Patel';
+    var defEmail = curUser.email || 'donor@sevasetu.org';
+    var defPhone = curUser.phone || '+91 98765 43210';
+    var defPan = curUser.pan || 'ABCDE1234F';
+
     var formHtml = [
       '<div class="modal-card">',
       '  <div class="modal-header">',
-      '    <h3 class="modal-title">Make a Verified Donation</h3>',
+      '    <div style="display:flex; align-items:center; gap:10px;">',
+      '      <img src="assets/sevasetu-logo.png" alt="SevaSetu" style="width:28px; height:28px; border-radius:6px; object-fit:cover;">',
+      '      <h3 class="modal-title">Make a Verified Donation</h3>',
+      '    </div>',
       '    <button class="modal-close-btn" onclick="window.SevaSetuApp.closeModal(\'donation-modal\')">&times;</button>',
       '  </div>',
       '  <div class="modal-body">',
@@ -1058,21 +1067,21 @@
       '      </div>',
       '      <div class="form-group">',
       '        <label class="form-label">Donor Name (For Tax Receipt)</label>',
-      '        <input type="text" id="donor-name" class="form-input" required value="' + store.state.currentUser.name + '">',
+      '        <input type="text" id="donor-name" class="form-input" required value="' + defName + '">',
       '      </div>',
       '      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">',
       '        <div class="form-group">',
       '          <label class="form-label">Email Address</label>',
-      '          <input type="email" id="donor-email" class="form-input" required value="' + store.state.currentUser.email + '">',
+      '          <input type="email" id="donor-email" class="form-input" required value="' + defEmail + '">',
       '        </div>',
       '        <div class="form-group">',
       '          <label class="form-label">Phone Number</label>',
-      '          <input type="tel" id="donor-phone" class="form-input" value="' + store.state.currentUser.phone + '">',
+      '          <input type="tel" id="donor-phone" class="form-input" value="' + defPhone + '">',
       '        </div>',
       '      </div>',
       '      <div class="form-group">',
       '        <label class="form-label">Permanent Account Number (PAN) - Required for 80G Tax Benefit</label>',
-      '        <input type="text" id="donor-pan" class="form-input" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform:uppercase;" value="' + store.state.currentUser.pan + '">',
+      '        <input type="text" id="donor-pan" class="form-input" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform:uppercase;" value="' + defPan + '">',
       '        <p class="form-help">Mandatory under Income Tax Rule 18AB for generating 80G tax receipt and Form 10BD reporting.</p>',
       '      </div>',
       '      <div class="form-group">',
@@ -1450,11 +1459,11 @@
       '      </div>',
       '      <div class="form-group">',
       '        <label class="form-label">Volunteer Full Name</label>',
-      '        <input type="text" id="checkin-name-input" class="form-input" value="' + store.state.currentUser.name + '" required>',
+      '        <input type="text" id="checkin-name-input" class="form-input" value="' + (store.state.currentUser ? store.state.currentUser.name : 'Arjun Verma') + '" required>',
       '      </div>',
       '      <div class="form-group">',
       '        <label class="form-label">Volunteer Email</label>',
-      '        <input type="email" id="checkin-email-input" class="form-input" value="' + store.state.currentUser.email + '" required>',
+      '        <input type="email" id="checkin-email-input" class="form-input" value="' + (store.state.currentUser ? store.state.currentUser.email : 'volunteer@sevasetu.org') + '" required>',
       '      </div>',
       '      <button type="submit" class="btn btn-primary" style="width:100%; padding:12px;">Confirm Arrival & Check In</button>',
       '    </form>',

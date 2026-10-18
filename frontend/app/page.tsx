@@ -182,7 +182,7 @@ export default function HomePage() {
                       onClick={() => setActiveDonationCampaign(camp)}
                       className="btn btn-secondary btn-sm"
                     >
-                      <Heart size={14} /> Contribute
+                      <Heart size={14} /> Donate Now
                     </button>
                   </div>
                 </div>
