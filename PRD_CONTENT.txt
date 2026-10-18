@@ -1,0 +1,383 @@
+SevaSetu Product Requirements Document
+A product and delivery specification for a web and mobile platform connecting donors, volunteers, and verified nonprofit organizations.
+Document field
+Value
+Product
+SevaSetu
+Status
+Consolidated product specification
+Platforms
+Responsive web; Android and iOS planned in scaling phase
+Market and legal context
+India; statutory and tax workflows require qualified legal and compliance review
+Audience
+Product, design, engineering, operations, NGO partners, security, and compliance teams
+Purpose and scope
+SevaSetu will help people discover verified NGOs and campaigns, make donations, retrieve transaction records, and participate in verified volunteer activities. NGOs will manage profiles, campaigns, donations, volunteer activities, and impact updates. The platform must make verification status and fund-use information understandable while protecting personal and financial data.
+This PRD translates the supplied product notes and launch checklist into functional requirements, quality requirements, user journeys, and phased delivery criteria. Items marked TBD require a product, legal, compliance, or technical decision before the affected feature is built or launched.
+Product outcomes
+Donors can find causes, give through supported methods, and retrieve accurate transaction and tax documents.
+Verified NGOs can manage profiles, campaigns, donation records, volunteer activities, and impact evidence.
+Volunteers can register, record attendance, and receive verified service records when approved criteria are met.
+Platform operators can review organizations, manage access, investigate issues, and maintain auditable records.
+Contents
+1 Product definition and scope
+2 Users and permissions
+3 Functional requirements
+4 Core user journeys
+5 Data and records
+6 Non-functional requirements
+7 Legal and launch readiness
+8 SEO and visual design
+9 Delivery roadmap
+10 Success measures, risks, and open decisions
+1 Product definition and scope
+1.1 Vision
+SevaSetu is a transparent, compliant digital bridge connecting donors and volunteers with verified nonprofit organizations. It supports giving and volunteering with clear organization status, transaction records, and evidence of impact.
+1.2 In scope
+NGO registration, verification review, profiles, and status display.
+Campaign discovery, custom-amount donations, and campaign administration.
+Payment processing integration, donation records, receipts, Bill IDs, and donor/NGO vaults.
+Volunteer discovery, sign-up, session codes, attendance review, hours, slips, and certificates.
+Fund allocation and milestone reporting, plus media updates tied to campaigns or impact.
+Platform administration, role-based access, auditability, security controls, accessibility, legal disclosures, and public-site SEO.
+1.3 Out of scope or not yet defined
+Payment gateway vendor, settlement schedule, fees, chargeback policy, or reconciliation process.
+Exact NGO eligibility policy, evidence checklist, review service levels, renewal schedule, or appeal process.
+Final tax-advice language and rules for when an 80G receipt can be issued or corrected.
+Detailed mobile app scope beyond the stated Phase 3 release.
+Fundraising limits, self-drive approval, payout model, or beneficiary identity-verification policy.
+1.4 Product principles
+Show verification status with evidence and last-reviewed context; do not imply government endorsement.
+Keep donation, payment, receipt, refund, and tax-document states distinct and traceable.
+Collect only personal data required for the requested service or legal obligation.
+Give users clear control over consent, accessibility, and account records.
+Tie impact claims to an NGO, campaign, reporting period, and supporting evidence.
+2 Users and permissions
+Role
+Needs
+Core permissions
+Donor
+Find credible causes; donate; retrieve receipts; track contributions.
+Browse public records; manage own profile/PAN; create donations; access own Bill Vault and receipts; manage consent.
+NGO administrator
+Manage identity, compliance records, campaigns, donations, and impact.
+Manage assigned NGO profile/campaigns; upload evidence; view organization donation records; prepare reports; manage authorized NGO users.
+Campaign manager
+Publish and maintain an assigned campaign.
+Manage campaign content, goal, updates, media, allocation/milestone data, and volunteer opportunities.
+Volunteer
+Find opportunities; register; verify attendance; receive service records.
+Manage own applications, attendance, hours, and certificates.
+Field lead
+Run a session and verify presence.
+Create/revoke codes for assigned sessions; review attendance/hours; approve or reject with reason.
+Platform reviewer/admin
+Review evidence, manage trust/safety, investigate incidents.
+Review organization documents/status; suspend/restore content; manage roles; access operational audit trails under least privilege.
+Exact permissions, multi-user organization administration, account recovery, and separation of duties are TBD. Authorization must be enforced on the server for every protected action, not only by hiding interface controls.
+3 Functional requirements
+Priority uses MoSCoW: Must is required for the stated phase; Should is important but may follow the first release; Could is optional in the current roadmap. Acceptance criteria describe observable behavior for review.
+3.1 Identity, registration, and access
+ID
+Requirement and acceptance criteria
+Priority
+ID-01
+Users can register, sign in, recover access, and sign out. Protected areas require an authenticated session; recovery does not disclose whether an account exists.
+Must
+ID-02
+Support donor, NGO admin, campaign manager, volunteer, field lead, and platform-admin roles. Check role and resource ownership on every protected operation; deny and log unauthorized access.
+Must
+ID-03
+Users can update profile and communication preferences. Changes are validated, saved, and reflected on next view.
+Must
+ID-04
+Record applicable cookie/form consent with policy version, timestamp, and choice. Optional marketing consent is unchecked by default; users can change preferences.
+Must
+3.2 NGO onboarding and verification
+ID
+Requirement and acceptance criteria
+Priority
+NGO-01
+Organizations submit profile, contacts, mission, registration details, and required evidence. Submission returns a reference/status and identifies missing fields.
+Must
+NGO-02
+Support PAN checks and review of applicable 12A, 80G, Darpan ID, and FCRA evidence. Each item records status, source/reviewer, date, and history; FCRA may be marked not applicable.
+Must
+NGO-03
+Reviewers approve, reject, request information, suspend, or renew organization status. Decisions record actor, time, reason, and transition; organizations can respond to requests.
+Must
+NGO-04
+Public pages show approved content, campaigns, and verification context. Unpublished/rejected material remains private; expired/suspended evidence is not shown as current.
+Must
+NGO-05
+Support expiry alerts and re-verification. Expiry changes status according to policy; alert lead time and grace period are TBD.
+Should
+3.3 Discovery, campaigns, and donation drives
+ID
+Requirement and acceptance criteria
+Priority
+CMP-01
+Visitors browse/search public NGO profiles and active campaigns, filter by cause and status, and open canonical detail pages.
+Must
+CMP-02
+Campaign pages show organization, purpose, goal if supplied, progress if reliable, dates/status, donation action, and updates. Only authorized staff publish edits; material changes are logged.
+Must
+CMP-03
+Donors enter custom or suggested amount. Validate configured minimum/maximum and show amount before payment; limits are TBD.
+Must
+CMP-04
+Verified NGOs create/manage drives with draft, review, published, paused, completed, and rejected states; publish only after required approval.
+Must
+CMP-05
+Verified users or organizations propose birthday, memorial, or localized drives. Proposal identifies organizer, beneficiary/cause, recipient NGO/payout arrangement, moderation state, and disclosures. Eligibility and payout rules TBD.
+Could
+3.4 Payments, donation records, and receipts
+ID
+Requirement and acceptance criteria
+Priority
+PAY-01
+Checkout supports UPI, cards, and net banking through an approved provider. Record provider reference, amount, currency, status, timestamps, and idempotency key; SevaSetu does not store raw card credentials.
+Must
+PAY-02
+Collect donor identity/PAN when needed for the requested tax benefit or statutory reporting. Explain purpose and optionality where permitted; validate clearly; restrict and audit PAN access.
+Must
+PAY-03
+Create a unique immutable Bill ID for every donation transaction entering the recorded payment lifecycle. Link donor, NGO/campaign, amount, provider reference, and state.
+Must
+PAY-04
+Track pending, successful, failed, refunded, and partially refunded states. Authenticate callbacks, ignore duplicates safely, and show current status to donors.
+Must
+PAY-05
+For qualifying successful donations to eligible NGOs, generate PDF receipt with donor name, PAN as required, receipt ID, NGO tax details, amount/date, and QR verification. Issue only when eligibility and records are verified; QR reveals minimal data.
+Must
+PAY-06
+Provide searchable donor/NGO Bill Vault with receipt downloads. Enforce record-level access; filter by date/status/Bill ID; log downloads.
+Must
+PAY-07
+Support correction, cancellation, refund, and receipt reissue without deleting originals; revised document references superseded receipt. Eligibility/SLA TBD.
+Should
+PAY-08
+Provide controlled NGO reporting data to support applicable donation statements, including Form 10BD readiness. Reconcile fields to transactions/receipts; filing responsibility and format need sign-off.
+Should
+3.5 Volunteer management
+ID
+Requirement and acceptance criteria
+Priority
+VOL-01
+Volunteers browse opportunities, review requirements, and apply/register. Confirmation includes event details, status, and cancellation/contact instructions.
+Must
+VOL-02
+Authorized lead creates session-specific attendance code. Code is unpredictable, time-limited, scoped, revocable, and unusable after session window; expiry policy TBD.
+Must
+VOL-03
+Volunteer enters/scans code for check-in and check-out. Record person, session, times, session reference, and duplicate/invalid attempts.
+Must
+VOL-04
+Lead reviews/approves/rejects hours. Edits require reason and preserve submitted values/history.
+Must
+VOL-05
+Generate slip/certificate when configured attendance/hour criteria are met and approved. Include unique ID, participant, activity, dates/hours, issuer, and validation method.
+Should
+VOL-06
+Dashboards show applications, attendance, approved hours, and documents. Users download own records; NGO access is scoped to assigned opportunities.
+Should
+3.6 Transparency and impact
+ID
+Requirement and acceptance criteria
+Priority
+IMP-01
+NGOs publish campaign allocations, operational costs, and milestones. Figures include amount/percentage, period, category, status, and updated time; unknown values are not represented as zero.
+Must
+IMP-02
+NGOs publish text/photo/video updates. Media includes caption, date, campaign, rights/consent confirmation, moderation state, and image alt text.
+Should
+IMP-03
+Distinguish NGO-reported from independently verified figures, showing verification source/scope when claimed. Prohibit fabricated testimonials and unsupported metrics.
+Must
+IMP-04
+Users report inaccurate, unsafe, or rights-infringing content; reports enter platform review with auditable disposition.
+Should
+3.7 Platform administration and support
+ID
+Requirement and acceptance criteria
+Priority
+ADM-01
+Staff review organizations, campaigns, media, and user reports in a queue with status, assignee, timestamps, reason, and escalation history.
+Must
+ADM-02
+Admins suspend access/content during investigation, recording scope, reason, actor, and time; notify affected users when policy permits.
+Must
+ADM-03
+Support locates transactions by Bill ID without unrestricted PAN access. Access is role-gated, purpose-logged, and masked by default.
+Must
+4 Core user journeys
+4.1 Donation
+Browse NGOs/campaigns → review purpose and verification → enter custom/suggested amount → provide details/PAN if applicable → confirm consent and eligibility disclosure → pay through provider → receive result and Bill ID → open Bill Vault → download eligible receipt and verify QR.
+4.2 Volunteer attendance
+Browse opportunity → review requirements → register → arrive → lead opens session and shares code → volunteer checks in and out → lead reviews hours → approved volunteer receives slip/certificate when criteria are met.
+4.3 NGO onboarding
+Create organization account → submit profile/evidence → platform review and applicable validation → receive decision or information request → respond → publish verified profile → maintain evidence as details expire/change.
+4.4 Campaign publication
+Authorized user creates draft → adds purpose, dates, goal, disclosures, media → moderation if required → approval or correction request → public discovery → allocation/impact updates → pause or close with final status/report.
+5 Data and records
+Record
+Key fields
+Access and retention
+User profile
+User ID, contact, roles, preferences, consent history.
+User and authorized staff; retention/deletion schedule TBD.
+NGO verification
+Organization ID, PAN, registration/tax status, evidence, decisions, expiry.
+Restricted reviewers/authorized NGO users; encrypt; define retention.
+Donation
+Bill ID, donor, NGO/campaign, amount/currency, provider reference, status, times.
+Donor sees own; NGO sees its own; support access limited and audited.
+Receipt
+Receipt ID, Bill ID, required donor/tax data, NGO eligibility, issue/reissue state, QR token.
+Donor/authorized NGO; immutable versions; QR minimizes public data.
+Volunteer session
+Session, volunteer, check-in/out, code reference, hours, reviewer/reason.
+Volunteer own records; assigned lead/NGO only; preserve edits.
+Impact/media
+Campaign, category, amount/percentage, period, evidence, rights/consent, state.
+Public only after publication; NGO/moderator scoped access.
+Data model, retention periods, deletion exceptions, residency, backup objectives, and audit-log retention are TBD and require approval before production data collection.
+6 Non-functional requirements
+6.1 Security and privacy
+Area
+Requirement
+Transport/storage
+TLS for all traffic. Encrypt sensitive data at rest with AES-256 or approved equivalent; document key management and rotation.
+Access
+Least privilege and role-based access. Protect administrative actions with stronger authentication; method TBD.
+Payments
+Use PCI-compliant provider and hosted/tokenized capture; do not store full card data.
+Abuse prevention
+WAF, DDoS mitigation, bot/rate limiting, brute-force defenses, secure sessions, suspicious-activity monitoring.
+Sensitive data
+Mask PAN/identity documents by default; restrict access, log reads/downloads, and exclude sensitive data from URLs, analytics, logs, and QR codes.
+Auditability
+Record sign-ins, verification decisions, campaign changes, payment/receipt states, attendance edits, permission changes, and privileged data access.
+Privacy
+Publish privacy/cookie/terms/refund policies; minimize data; define purpose/retention; honor applicable requests; document third-party sharing.
+Incident response
+Define detection, escalation, containment, notification, recovery, and evidence-preservation procedures before launch.
+6.2 Reliability, performance, compatibility
+Set measurable availability, latency, backup, recovery point, and recovery time objectives before launch (TBD).
+Payment callbacks and receipt generation must be retry-safe and idempotent; failures must not create duplicate charges or receipts.
+Responsive web supports current major mobile/desktop browsers; exact support matrix TBD.
+Validate uploads, scan for malware, enforce size limits, and deliver content safely.
+Define and monitor Core Web Vitals/page-load budgets; target thresholds TBD.
+Store timestamps consistently and render in user-configured/local time.
+6.3 Accessibility and usability
+Target WCAG 2.2 AA, subject to accessibility review.
+Support keyboard navigation, visible focus, semantic headings, labels, clear validation, and error recovery.
+Use meaningful alt text; decorative images add no redundant screen-reader output.
+Meet accessible contrast; never use color as the sole status signal.
+Capture explicit cookie/form consent where required; optional checkboxes are not preselected.
+Use clear action labels and confirm irreversible or financially consequential actions.
+6.4 Integrations
+Payment gateway for UPI, cards, and net banking; provider and callbacks TBD.
+PAN/statutory registry checks: vendor, API, fallback/manual review, and service levels TBD.
+Email/SMS/push: provider, message categories, opt-in/out, retries, localization TBD.
+QR validation uses a signed or unguessable token and exposes a minimal public record.
+7 Legal and launch readiness
+These are product launch requirements. Qualified legal and compliance specialists must confirm exact wording and applicability for the operating entity, jurisdictions, and current rules.
+Control
+Launch requirement and evidence
+Privacy policy
+Explain data, purpose, sharing, retention, user rights, and contact route; match actual behavior.
+Terms
+Define obligations, platform role, NGO responsibilities, acceptable use, disputes, and governing law.
+Cookies and consent
+Inventory cookies/trackers; obtain/record consent where required; provide controls.
+Refund policy
+State eligibility, exceptions, timelines, provider dependencies, and receipt correction effects.
+Business details
+Publish registered operator details and required contact/complaint information.
+Data minimization
+Justify each field; remove fields without service, security, or legal purpose.
+Third-party embeds
+Inventory analytics, video, maps, widgets, scripts, and iframes; assess transfers/consent.
+Tax/reporting
+Validate PAN handling, 80G eligibility and receipt content, Form 10BD readiness, corrections.
+Claims
+Use permissioned testimonials and evidence-backed impact claims; no fabricated reviews.
+Media rights
+Confirm licenses and consent for media, beneficiary stories, and identifiable data.
+Local law
+Confirm applicable Indian/other privacy, IT, consumer, payments, fundraising, tax, and nonprofit rules before launch.
+8 SEO and visual design
+8.1 Search indexing and public pages
+Provide sitemap.xml and robots.txt; allow intended public content and keep private/admin routes out of search.
+Remove accidental noindex from public pages; use intentional index controls for private/duplicate/low-value pages.
+Use canonical URLs and clean semantic slugs for NGO/campaign pages.
+Give each indexable page a unique title/meta description, one H1, and sequential heading hierarchy.
+Add appropriate schema.org JSON-LD and Open Graph metadata; structured data must match visible content.
+Verify production domain in Google Search Console; monitor indexing, sitemap, broken links, and 404s.
+Optimize images with WebP/AVIF where supported; link causes, NGOs, campaigns, and updates.
+Track Core Web Vitals, mobile usability, HTTPS, crawl errors. Backlink outreach is ongoing marketing, not a software gate.
+8.2 Visual system
+Use the 60-30-10 color allocation as a guideline: roughly 60 percent dominant background, 30 percent structural/content surfaces, and 10 percent action/highlight accents. Final palette, typography, breakpoints, component library, and brand assets are TBD. Accessibility contrast takes precedence over exact ratios.
+9 Delivery roadmap and release criteria
+Phase
+Scope
+Exit criteria
+Phase 1 Foundation MVP
+NGO registration/evidence/review; public profiles/campaigns; custom donations; UPI; applicable PAN validation; eligible receipts; Bill ID and donor/NGO vault.
+Review successful, failed, duplicate-callback flows; access/privacy checks; compliance reviews receipt samples; define support/refunds; publish launch policies.
+Phase 2 Engagement/transparency
+Volunteer portal, lead codes, attendance, hours, slips/certificates, ledger updates, media/video feeds.
+Audit code lifecycle and attendance corrections; media rights/consent active; impact figures include period/status; accessibility review complete.
+Phase 3 Scaling/community
+Self-driven donation drives, WAF/security hardening, advanced reporting, Android/iOS apps.
+Approve drive/payout/refund/accountability model; meet security remediation gate; approve mobile scope and release criteria.
+The roadmap gives sequence only. No calendar dates, staffing estimates, or delivery commitments were supplied.
+10 Success measures, risks, and open decisions
+10.1 Proposed measures
+Define baselines, reporting cadence, owners, and targets before using these as commitments.
+Measure
+Definition
+NGO review
+Count/time from complete submission to decision; rework and expiry rates.
+Donation completion
+Successful donations / checkout attempts, by method and failure reason.
+Receipt quality
+Eligible successful donations with correct receipt; correction/reissue rate.
+Record access
+Bill Vault retrieval success and time to find/download receipt.
+Volunteer verification
+Registered volunteers with approved attendance; exception/correction rate.
+Transparency freshness
+Active campaigns with current allocation/milestone update within policy period.
+Trust and safety
+Reports, review time, substantiated issues, repeat incidents.
+Accessibility/performance
+Audit findings, keyboard task completion, Core Web Vitals against approved thresholds.
+10.2 Key risks and mitigations
+Risk
+Mitigation / decision
+Incorrect tax eligibility/receipt
+Approve eligibility and templates with compliance; issue only against verified states; preserve versions.
+Fraudulent/expired evidence
+Document checks, audit decisions, expiry alerts, re-verification, suspension.
+Payment mismatch/duplicates
+Authenticated callbacks, idempotency, reconciliation, exception queue.
+Volunteer code replay/sharing
+Short-lived session codes, separate check-in/out, lead approval, anti-abuse policy.
+Misleading impact or privacy harm
+Require source/period, moderation, consent, takedown route, minimize beneficiary data.
+Sensitive data exposure
+Restrict/mask PAN, encrypt, audit access, limit retention, inspect logs/analytics.
+10.3 Open decisions before implementation
+What legal entity operates SevaSetu, and which jurisdictions/user groups are in scope?
+Which payment provider will be used, and how do settlement, fees, chargebacks, refunds, and reconciliation work?
+What are NGO eligibility evidence, review SLA, appeals, renewal, and badge wording?
+When can an 80G receipt be generated, corrected, voided, or reissued, and who approves the template?
+Which PAN/statutory checks are automated or manual, and what happens when services are unavailable?
+What are donation limits, campaign approval rules, self-drive eligibility, beneficiary safeguards, and payout model?
+What are retention/deletion, residency, backup, and incident-notification policies?
+What service targets apply to uptime, latency, support, recovery, Web Vitals, and code validity?
+Which languages, currencies, accessibility evidence, and browser/device support are launch requirements?
+Which NGO users can view/export donor data, and what separation-of-duties controls apply?
