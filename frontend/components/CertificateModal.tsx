@@ -32,6 +32,13 @@ export default function CertificateModal() {
             borderRadius: "var(--radius-sm)",
             boxShadow: "inset 0 0 20px rgba(0,0,0,0.02)"
           }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "12px" }}>
+              <img
+                src="/assets/sevasetu-logo.png"
+                alt="SevaSetu Seal"
+                style={{ width: "54px", height: "54px", borderRadius: "12px", objectFit: "cover", boxShadow: "0 4px 10px rgba(15, 76, 129, 0.2)" }}
+              />
+            </div>
             <div style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "2px", color: "var(--primary)", fontWeight: 800 }}>
               SEVASETU VERIFIED IMPACT NETWORK
             </div>

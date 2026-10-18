@@ -27,8 +27,12 @@ export default function AuthModal() {
     <div className="modal-overlay" onClick={() => setShowAuthModal(false)}>
       <div className="modal-card" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Lock size={20} color="var(--primary)" />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <img
+              src="/assets/sevasetu-logo.png"
+              alt="SevaSetu Logo"
+              style={{ width: "30px", height: "30px", borderRadius: "6px", objectFit: "cover" }}
+            />
             <div className="modal-title">{activeTab === "login" ? "Sign In to SevaSetu" : "Register Profile"}</div>
           </div>
           <button className="modal-close-btn" onClick={() => setShowAuthModal(false)}>

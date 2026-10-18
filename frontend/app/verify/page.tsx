@@ -54,8 +54,12 @@ export default function VerifyPage() {
   return (
     <div className="container" style={{ padding: "40px 24px 80px", maxWidth: "800px" }}>
       <div style={{ textAlign: "center", marginBottom: "36px" }}>
-        <div style={{ width: "56px", height: "56px", borderRadius: "16px", background: "var(--primary-light)", color: "var(--primary)", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
-          <QrCode size={28} />
+        <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "16px" }}>
+          <img
+            src="/assets/sevasetu-logo.png"
+            alt="SevaSetu Logo"
+            style={{ width: "56px", height: "56px", borderRadius: "14px", objectFit: "cover", boxShadow: "0 4px 12px rgba(15, 76, 129, 0.18)" }}
+          />
         </div>
         <h1 style={{ fontSize: "2.2rem", fontWeight: 800, marginBottom: "8px" }}>
           Public QR & Statutory Authenticator
@@ -111,13 +115,20 @@ export default function VerifyPage() {
         <div>
           {result.valid ? (
             <div style={{ background: "#f0fdf4", border: "2px solid #86efac", borderRadius: "var(--radius-lg)", padding: "28px", boxShadow: "var(--shadow-md)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "50%", background: "#22c55e", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <CheckCircle2 size={24} />
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <img
+                    src="/assets/sevasetu-logo.png"
+                    alt="SevaSetu Seal"
+                    style={{ width: "42px", height: "42px", borderRadius: "10px", objectFit: "cover" }}
+                  />
+                  <div>
+                    <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "#166534" }}>Authentic SevaSetu Record</h3>
+                    <div style={{ fontSize: "0.82rem", color: "#15803d" }}>Cryptographic Record Hash: {result.verification_hash}</div>
+                  </div>
                 </div>
-                <div>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "#166534" }}>Authentic SevaSetu Record</h3>
-                  <div style={{ fontSize: "0.82rem", color: "#15803d" }}>Cryptographic Record Hash: {result.verification_hash}</div>
+                <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#22c55e", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <CheckCircle2 size={20} />
                 </div>
               </div>
 

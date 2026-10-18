@@ -8,9 +8,13 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-col">
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
-              <ShieldCheck size={24} color="var(--primary)" />
-              <h3 style={{ fontSize: "1.15rem", fontWeight: 800, color: "var(--primary)" }}>SevaSetu Platform</h3>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+              <img
+                src="/assets/sevasetu-logo.png"
+                alt="SevaSetu Logo"
+                style={{ width: "36px", height: "36px", borderRadius: "8px", objectFit: "cover" }}
+              />
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--primary)" }}>SevaSetu Platform</h3>
             </div>
             <p>
               India's first statutory-first bridge empowering genuine philanthropy with automated 80G tax certificates, instant Form 10BD income tax filing queues, and verified volunteer telemetry.

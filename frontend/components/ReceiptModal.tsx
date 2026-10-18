@@ -30,13 +30,20 @@ export default function ReceiptModal() {
           {/* Printable Receipt Layout */}
           <div style={{ border: "2px dashed var(--primary)", borderRadius: "var(--radius-md)", padding: "24px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderBottom: "1px solid var(--border)", paddingBottom: "16px", marginBottom: "16px" }}>
-              <div>
-                <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--primary)" }}>SevaSetu Philanthropy Trust</h3>
-                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
-                  Income Tax Registration No: CIT(EXEMPTION)/DELHI/80G/2023-24/A/10043
-                </div>
-                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
-                  Unique Registration Number (URN): AABTS9943PF20234
+              <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                <img
+                  src="/assets/sevasetu-logo.png"
+                  alt="SevaSetu Seal"
+                  style={{ width: "48px", height: "48px", borderRadius: "10px", objectFit: "cover", boxShadow: "0 2px 6px rgba(0,0,0,0.1)" }}
+                />
+                <div>
+                  <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--primary)" }}>SevaSetu Philanthropy Trust</h3>
+                  <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
+                    Income Tax Registration No: CIT(EXEMPTION)/DELHI/80G/2023-24/A/10043
+                  </div>
+                  <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
+                    Unique Registration Number (URN): AABTS9943PF20234
+                  </div>
                 </div>
               </div>
               <div style={{ textAlign: "right" }}>

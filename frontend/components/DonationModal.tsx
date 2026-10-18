@@ -42,8 +42,12 @@ export default function DonationModal() {
     <div className="modal-overlay" onClick={() => setActiveDonationCampaign(null)}>
       <div className="modal-card" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Heart size={20} color="var(--secondary)" />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <img
+              src="/assets/sevasetu-logo.png"
+              alt="SevaSetu Logo"
+              style={{ width: "30px", height: "30px", borderRadius: "6px", objectFit: "cover" }}
+            />
             <div className="modal-title">Support Verified Campaign</div>
           </div>
           <button className="modal-close-btn" onClick={() => setActiveDonationCampaign(null)}>
