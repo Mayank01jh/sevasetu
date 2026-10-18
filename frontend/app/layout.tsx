@@ -31,7 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/assets/sevasetu-logo.png" />
+        <link rel="icon" type="image/png" href="/assets/sevasetu-logo.png" />
+        <link rel="shortcut icon" type="image/png" href="/assets/sevasetu-logo.png" />
+        <link rel="apple-touch-icon" href="/assets/sevasetu-logo.png" />
       </head>
       <body>
         <AppProvider>
