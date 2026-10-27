@@ -14,15 +14,17 @@ The local repository is already initialized and committed to the `main` branch.
 3. Keep it **Public** (or **Private**). Do **not** initialize with a README, .gitignore, or license (these are already configured in this codebase).
 4. Click **Create repository**.
 
-### Step 1.2: Add Remote and Push
-Run the following commands in your terminal from `c:\Users\mayan\Downloads\PROJECTS\sevasetu`:
+### Step 1.2: Remote & Repository Link
+The project remote is connected and published to GitHub:
+- **Repository URL:** [https://github.com/Mayank01jh/sevasetu](https://github.com/Mayank01jh/sevasetu)
+- **Tracking Branch:** `origin/main`
 
+To push subsequent updates:
 ```bash
-git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/sevasetu.git
-git push -u origin main
+git add .
+git commit -m "your commit message"
+git push
 ```
-
-*(Replace `<YOUR_GITHUB_USERNAME>` with your GitHub handle).*
 
 ---
 
