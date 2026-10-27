@@ -10,7 +10,7 @@ from app.models.schemas import (
 )
 from app.routers.auth import require_role, get_current_user
 
-router = APIRouter(prefix="/api/volunteers", tags=["Volunteers"])
+router = APIRouter(prefix="/volunteers", tags=["Volunteers"])
 
 ACTIVE_SESSIONS: Dict[str, Dict[str, Any]] = {
     "vol-kolar-kitchen": {

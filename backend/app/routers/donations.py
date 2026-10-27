@@ -11,7 +11,7 @@ from app.routers.auth import get_current_user, require_role
 from app.routers.campaigns import CAMPAIGNS_DB
 from app.routers.ngos import NGOS_DB
 
-router = APIRouter(prefix="/api/donations", tags=["Donations & Bill Vault"])
+router = APIRouter(prefix="/donations", tags=["Donations & Bill Vault"])
 
 PAN_REGEX = re.compile(r"^[A-Z]{5}[0-9]{4}[A-Z]{1}$")
 

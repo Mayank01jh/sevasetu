@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException, Query
 from typing import Optional
 from app.database import get_db, in_memory_store
+from app.routers.donations import DONATIONS_DB
+from app.routers.volunteers import VOLUNTEER_RECORDS
 
 router = APIRouter(prefix="/verify", tags=["Public Verification"])
 
@@ -15,8 +17,14 @@ async def verify_receipt(bill_id: str = Query(..., description="Unique 80G Bill 
             pass
 
     if not receipt:
-        for d in in_memory_store["donations"]:
-            if d.get("bill_id") == bill_id:
+        for d in DONATIONS_DB:
+            if d.get("bill_id") == bill_id or d.get("receipt_id") == bill_id:
+                receipt = d
+                break
+
+    if not receipt:
+        for d in in_memory_store.get("donations", []):
+            if d.get("bill_id") == bill_id or d.get("receipt_id") == bill_id:
                 receipt = d
                 break
 
@@ -27,9 +35,9 @@ async def verify_receipt(bill_id: str = Query(..., description="Unique 80G Bill 
         "valid": True,
         "bill_id": receipt.get("bill_id"),
         "donor_name": receipt.get("donor_name"),
-        "masked_pan": (receipt.get("donor_pan", "")[:2] + "XXXXX" + receipt.get("donor_pan", "")[-1:]) if receipt.get("donor_pan") else "N/A",
+        "masked_pan": (receipt.get("donor_pan", "")[:2] + "XXXXX" + receipt.get("donor_pan", "")[-1:]) if receipt.get("donor_pan") else receipt.get("donor_pan_masked", "N/A"),
         "amount": receipt.get("amount"),
-        "tax_exemption_80g": receipt.get("tax_exemption_80g"),
+        "tax_exemption_80g": receipt.get("tax_exemption_80g", True),
         "eligible_deduction": receipt.get("amount", 0) * 0.5,
         "ngo_id": receipt.get("ngo_id"),
         "campaign_id": receipt.get("campaign_id"),
@@ -49,7 +57,13 @@ async def verify_certificate(certificate_id: str = Query(..., description="Certi
             pass
 
     if not cert:
-        for c in in_memory_store["certificates"]:
+        for c in VOLUNTEER_RECORDS:
+            if c.get("certificate_id") == certificate_id:
+                cert = c
+                break
+
+    if not cert:
+        for c in in_memory_store.get("certificates", []):
             if c.get("certificate_id") == certificate_id:
                 cert = c
                 break
@@ -61,9 +75,9 @@ async def verify_certificate(certificate_id: str = Query(..., description="Certi
         "valid": True,
         "certificate_id": cert.get("certificate_id"),
         "volunteer_name": cert.get("volunteer_name"),
-        "event_title": cert.get("event_title"),
-        "hours_credited": cert.get("hours_credited"),
-        "issued_by": cert.get("issued_by"),
-        "issued_at": cert.get("issued_at"),
+        "event_title": cert.get("event_title", cert.get("opportunity_title")),
+        "hours_credited": cert.get("hours_credited", cert.get("hours_logged")),
+        "issued_by": cert.get("issued_by", cert.get("ngo_name")),
+        "issued_at": cert.get("issued_at", cert.get("session_date")),
         "qr_verification_status": "VERIFIED_GENUINE_SEVASETU_VOLUNTEER_HOURS"
     }

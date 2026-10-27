@@ -4,7 +4,7 @@ from typing import List, Dict, Any
 from app.models.schemas import CampaignCreate, CampaignOut, FundAllocationItem, MilestoneItem
 from app.routers.auth import require_role
 
-router = APIRouter(prefix="/api/campaigns", tags=["Campaigns"])
+router = APIRouter(prefix="/campaigns", tags=["Campaigns"])
 
 # Seed Campaigns
 CAMPAIGNS_DB: List[Dict[str, Any]] = [

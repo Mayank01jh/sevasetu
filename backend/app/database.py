@@ -1,16 +1,27 @@
 import logging
-from motor.motor_asyncio import AsyncIOMotorClient
+from typing import Optional, Dict, Any, List
+from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from supabase import create_client, Client
 from app.config import settings
 
 logger = logging.getLogger("sevasetu.database")
 
 # MongoDB Client
-mongo_client: AsyncIOMotorClient = None
-mongo_db = None
+mongo_client: Optional[AsyncIOMotorClient] = None
+mongo_db: Optional[AsyncIOMotorDatabase] = None
 
 # Supabase Client
-supabase_client: Client = None
+supabase_client: Optional[Client] = None
+
+# Fallback store for when running in mock / zero-credential mode
+in_memory_store: Dict[str, List[Dict[str, Any]]] = {
+    "donations": [],
+    "certificates": []
+}
+
+async def get_db() -> Optional[AsyncIOMotorDatabase]:
+    global mongo_db
+    return mongo_db
 
 async def init_databases():
     global mongo_client, mongo_db, supabase_client

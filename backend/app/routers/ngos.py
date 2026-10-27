@@ -3,7 +3,7 @@ from typing import List, Dict, Any
 from app.models.schemas import NgoOut, NgoReviewDecision, NgoCreate
 from app.routers.auth import require_role
 
-router = APIRouter(prefix="/api/ngos", tags=["NGOs"])
+router = APIRouter(prefix="/ngos", tags=["NGOs"])
 
 NGOS_DB: List[Dict[str, Any]] = [
     {
